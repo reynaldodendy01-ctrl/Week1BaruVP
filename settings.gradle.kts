@@ -25,3 +25,4 @@ dependencyResolutionManagement {
 rootProject.name = "Week 1 Baru"
 include(":app")
 include(":soal1")
+include(":soal2")
