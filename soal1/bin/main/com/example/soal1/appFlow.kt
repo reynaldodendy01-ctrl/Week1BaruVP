@@ -37,7 +37,7 @@ class appFlow {
                 "5. Edit Menu\n" +
                 "6. Delete Menu\n" +
                 "7. Exit\nInput: ")
-        input = readlnOrNull() ?: ""
+        input = readln()
         return input
     }
 
@@ -54,7 +54,7 @@ class appFlow {
     fun viewOrder() {
         var total=0
         println("——— <Customer>’s ORDER ——-")
-        for ((index, m) in listOrder.withIndex()) {
+        for ((index, m) in listMenu.withIndex()) {
             if(m.getJumlahPesan()!=0) {
                 val nomor = index + 1
                 println("$nomor. ${m.getnama()} x${m.getJumlahPesan()}        $${(m.getprice() * m.getJumlahPesan())}")
@@ -69,20 +69,12 @@ class appFlow {
 
     fun makeOrder(){
         viewMenu()
-        var inputt : Int=0
+        var input : String=""
         print("Pick Menu? ")
-        inputt=(readlnOrNull()?.toIntOrNull() ?: 0)
-        if(inputt<1||inputt>listMenu.size){
-            println("Masukan angka yang sesuai")
-            return
-        }
-        var foodd: food=listMenu.get((inputt)-1)
+        input=readln()
+        var foodd: food=listMenu.get(input.toInt()-1)
         print("How Many? ")
-        inputt=readlnOrNull()?.toIntOrNull() ?: 0
-        if(inputt<1){
-            println("Masukan angka yang sesuai")
-            return
-        }
+        input=readln()
 //        foodd.tambahPesan(input.toInt())
 //        listOrder.add(foodd)
         var ada=0
@@ -96,10 +88,10 @@ class appFlow {
             }
         }
         if (ada>0){
-            foodd.tambahPesan(inputt)
+            foodd.tambahPesan(input.toInt())
             //print("p udh ada")
         } else{
-            foodd.tambahPesan(inputt)
+            foodd.tambahPesan(input.toInt())
             listOrder.add(foodd)
             //print("p baru")
         }
@@ -111,12 +103,8 @@ class appFlow {
         println("DELETE MENU")
         viewMenu()
         print("Pilih menu yang ingin dihapus: ")
-        val del: Int=readlnOrNull()?.toIntOrNull() ?: 0
-        if(del<1||del>listMenu.size){
-            println("Masukan angka yang sesuai")
-            return
-        }
-        listMenu.removeAt((del-1))
+        val del: String=readln()
+        listMenu.removeAt((del.toInt()-1))
         print("Menu terhapus\n\n")
     }
 
@@ -124,21 +112,12 @@ class appFlow {
         println("EDIT MENU")
         viewMenu()
         print("Pilih menu yang ingin diedit")
-        val del: Int=readlnOrNull()?.toIntOrNull() ?: 0
-        if(del<1||del>listMenu.size){
-            println("Masukan angka yang sesuai")
-            return
-        }
-        var foodo:food =listMenu.get((del-1))
+        val del: String=readln()
+        var foodo:food =listMenu.get((del.toInt()-1))
         print("Nama lama: ${foodo.getnama()} \nInput Nama baru: ")
         foodo.setnama(readln())
-        print("harga lama: &${foodo.getprice()} \nInput harga baru: $")
-        val hargaBaru:Int= readlnOrNull()?.toIntOrNull() ?: 0
-        if(hargaBaru<1){
-            println("Masukan angka yang sesuai")
-            return
-        }
-        foodo.setprice(hargaBaru)
+        print("harga lama: &${foodo.getprice()} \nInput Nama baru: $")
+        foodo.setprice(readln().toInt())
         print("desc lama: ${foodo.getdesc()} \nInput desc baru:")
         foodo.setdesc(readln())
         println("Menu berhasil diedit.\n\n")
@@ -150,12 +129,7 @@ class appFlow {
         print("Input nama menu baru: ")
         val inputNama=readln()
         print("Input harga menu baru: ")
-        val inputHarga:Int=readlnOrNull()?.toIntOrNull() ?: 0
-        if(inputHarga<1){
-            println("Masukan angka yang sesuai")
-            return
-        }
-
+        val inputHarga=readln()
         print("Input deskripsi singkat mengenai menu baru: ")
         val inputDesc=readln()
         val menu1= food(inputNama.toString(),inputHarga.toInt(),inputDesc)
